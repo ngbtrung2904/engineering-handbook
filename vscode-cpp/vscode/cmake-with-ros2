@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+setup_script="/opt/ros/rolling/setup.bash"
+if [[ ! -f "$setup_script" ]]; then
+    echo "ROS 2 setup script not found: $setup_script" >&2
+    exit 1
+fi
+
+source "$setup_script"
+
+if [[ "${1:-}" == "--write-env-file" ]]; then
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: $0 --write-env-file <path>" >&2
+        exit 2
+    fi
+    env_names=(
+        AMENT_PREFIX_PATH
+        CMAKE_PREFIX_PATH
+        COLCON_PREFIX_PATH
+        LD_LIBRARY_PATH
+        PATH
+        PKG_CONFIG_PATH
+        PYTHONPATH
+        ROS_DISTRO
+        ROS_PYTHON_VERSION
+        ROS_VERSION
+    )
+    for name in "${env_names[@]}"; do
+        if [[ -v "$name" ]]; then
+            printf '%s=%s\n' "$name" "${!name}"
+        fi
+    done | sort > "$2"
+else
+    exec cmake "$@"
+fi

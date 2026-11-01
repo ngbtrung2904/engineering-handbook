@@ -1,0 +1,207 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "alt+o",
+        "command": "clangd.switchheadersource",
+        "when": "editorTextFocus && (resourceLangId == 'c' || resourceLangId == 'cpp' || resourceLangId == 'cuda-cpp' || resourceLangId == 'objective-c' || resourceLangId == 'objective-cpp')"
+    },
+    {
+        "key": "alt+d",
+        "command": "editor.action.revealDeclaration"
+    },
+    {
+        "key": "alt+t",
+        "command": "editor.action.goToTypeDefinition"
+    },
+    {
+        "key": "alt+left",
+        "command": "workbench.action.navigateBackInNavigationLocations"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.navigateForwardInNavigationLocations"
+    },
+    {
+        "key": "shift+alt+y",
+        "command": "editor.showTypeHierarchy"
+    },
+    {
+        "key": "shift+alt+t",
+        "command": "editor.action.peekTypeDefinition"
+    },
+    {
+        "key": "shift+alt+d",
+        "command": "editor.action.peekDeclaration"
+    },
+    {
+        "key": "shift+alt+f12",
+        "command": "editor.action.peekDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "shift+alt+t",
+        "command": "-clangd.typeHierarchy",
+        "when": "editorTextFocus && resourceLangId == 'cpp' || editorTextFocus && resourceLangId == 'cuda-cpp' || editorTextFocus && resourceLangId == 'objective-c' || editorTextFocus && resourceLangId == 'objective-cpp'"
+    },
+    {
+        "key": "ctrl+shift+y",
+        "command": "references-view.showTypeHierarchy"
+    },
+    {
+        "key": "ctrl+k ctrl+g",
+        "command": "git-graph.view"
+    },
+    {
+        "key": "shift+alt+u",
+        "command": "editor.action.referenceSearch.trigger"
+    },
+    {
+        "key": "shift+f12",
+        "command": "-editor.action.goToReferences",
+        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "editor.showCallHierarchy",
+        "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-editor.showCallHierarchy",
+        "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+    },
+    {
+        "key": "ctrl+shift+u",
+        "command": "references-view.findReferences",
+        "when": "editorHasReferenceProvider"
+    },
+    {
+        "key": "shift+alt+f12",
+        "command": "-references-view.findReferences",
+        "when": "editorHasReferenceProvider"
+    },
+    {
+        "key": "ctrl+shift+y",
+        "command": "-chatEditor.action.accept",
+        "when": "chatEdits.hasEditorModifications && editorFocus && !chatEdits.isCurrentlyBeingModified || chatEdits.hasEditorModifications && notebookEditorFocused && !chatEdits.isCurrentlyBeingModified"
+    },
+    {
+        "key": "alt+u",
+        "command": "-jdk.java.goto.super.implementation",
+        "when": "editorHasCodeActionsProvider && editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "-workbench.view.debug",
+        "when": "viewContainer.workbench.view.debug.enabled"
+    },
+    {
+        "key": "alt+t",
+        "command": "-workbench.action.chat.focusQuestionCarouselTerminal",
+        "when": "chatHasQuestionCarousel && chatQuestionCarouselHasTerminal && inChat && inChatQuestionCarousel"
+    },
+    {
+        "key": "alt+t",
+        "command": "-workbench.action.chat.toggleThinkingContentAccessibleView",
+        "when": "accessibleViewIsShown && chatIsEnabled && accessibleViewCurrentProviderId == 'panelChat'"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "-workbench.action.chat.focusTodosView",
+        "when": "inChatInput && chatAgentKind == 'agent' || inChatTodoList && chatAgentKind == 'agent'"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "references-view.showCallHierarchy",
+        "when": "editorHasCallHierarchyProvider"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-references-view.showCallHierarchy",
+        "when": "editorHasCallHierarchyProvider"
+    },
+    {
+        "key": "shift+alt+d",
+        "command": "-notebook.cell.detectLanguage",
+        "when": "notebookCellEditable && notebookEditable"
+    },
+    {
+        "key": "shift+alt+d",
+        "command": "-editor.detectLanguage",
+        "when": "editorTextFocus && !notebookEditable"
+    },
+    {
+        "key": "ctrl+k ctrl+enter",
+        "command": "C_Cpp.CreateDeclarationOrDefinition"
+    },
+    {
+        "key": "shift+alt+f10",
+        "command": "editor.action.peekImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+shift+f12",
+        "command": "-editor.action.peekImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+f10",
+        "command": "editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "-editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus"
+    },
+    {
+        "key": "alt+u",
+        "command": "editor.action.goToReferences"
+    },
+    {
+        "key": "shift+alt+y",
+        "command": "editor.showSubtypes",
+        "when": "typeHierarchyVisible && typeHierarchyDirection == 'supertypes'"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-editor.showSubtypes",
+        "when": "typeHierarchyVisible && typeHierarchyDirection == 'supertypes'"
+    },
+    {
+        "key": "shift+alt+y",
+        "command": "editor.showSupertypes",
+        "when": "typeHierarchyVisible && typeHierarchyDirection == 'subtypes'"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-editor.showSupertypes",
+        "when": "typeHierarchyVisible && typeHierarchyDirection == 'subtypes'"
+    },
+    {
+        "key": "ctrl+k ctrl+w",
+        "command": "workbench.action.closeEditorsInGroup"
+    },
+    {
+        "key": "ctrl+k w",
+        "command": "-workbench.action.closeEditorsInGroup"
+    },
+    {
+        "key": "ctrl+k ctrl+w",
+        "command": "-workbench.action.closeAllEditors"
+    },
+    {
+        "key": "ctrl+shift+f10",
+        "command": "references-view.findImplementations"
+    },
+    {
+        "key": "ctrl+shift+f10",
+        "command": "-editor.action.peekDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "alt+o",
+        "command": "-C_Cpp.SwitchHeaderSource",
+        "when": "editorTextFocus && editorLangId =~ /^(c|(cuda-)?cpp)$/ && !(config.C_Cpp.intelliSenseEngine =~ /^[dD]isabled$/)"
+    }
+]

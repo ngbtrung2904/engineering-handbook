@@ -1,0 +1,204 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "shell": {
+            "executable": "/bin/bash",
+            "args": [
+                "-c"
+            ]
+        }
+    },
+    "tasks": [
+        {
+            "label": "ROS 2: Export debug environment",
+            "type": "process",
+            "command": "${workspaceFolder}/.vscode/cmake-with-ros2",
+            "args": [
+                "--write-env-file",
+                "${workspaceFolder}/.vscode/ros2.env"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure (GCC)",
+            "type": "process",
+            "command": "${workspaceFolder}/.vscode/cmake-with-ros2",
+            "args": [
+                "--preset",
+                "gcc-debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "ROS 2: Export debug environment"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure (Clang+Mold)",
+            "type": "process",
+            "command": "${workspaceFolder}/.vscode/cmake-with-ros2",
+            "args": [
+                "--preset",
+                "clang-mold-debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "ROS 2: Export debug environment"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Build (GCC)",
+            "type": "process",
+            "command": "${workspaceFolder}/.vscode/cmake-with-ros2",
+            "args": [
+                "--build",
+                "--preset",
+                "gcc-debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "ROS 2: Export debug environment"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build (Clang+Mold)",
+            "type": "process",
+            "command": "${workspaceFolder}/.vscode/cmake-with-ros2",
+            "args": [
+                "--build",
+                "--preset",
+                "clang-mold-debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "ROS 2: Export debug environment"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean (GCC)",
+            "type": "shell",
+            "command": "rm -rf \"${workspaceFolder}/build/Desktop_Qt_6_7_2-Debug\"",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean (Clang+Mold)",
+            "type": "shell",
+            "command": "rm -rf \"${workspaceFolder}/build/Desktop_Qt_6_7_2-Debug\"",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Generate ROS2 interfaces",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "source /opt/ros/rolling/setup.bash || true; bash ./generate_interfaces.sh"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/protocol"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Full rebuild (GCC)",
+            "dependsOn": [
+                "ROS 2: Export debug environment",
+                "Clean (GCC)",
+                "Generate ROS2 interfaces",
+                "Configure (GCC)",
+                "Build (GCC)"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Full rebuild (Clang+Mold)",
+            "dependsOn": [
+                "ROS 2: Export debug environment",
+                "Clean (Clang+Mold)",
+                "Generate ROS2 interfaces",
+                "Configure (Clang+Mold)",
+                "Build (Clang+Mold)"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Run application",
+            "type": "process",
+            "command": "/bin/bash",
+            "args": [
+                "-c",
+                "source /opt/ros/rolling/setup.bash && source \"${workspaceFolder}/protocol/install/setup.bash\" && exec \"${workspaceFolder}/build/Desktop_Qt_6_7_2-Debug/app/apparddm\" --u --fnc=0"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Build (Clang+Mold)"
+            ]
+        },
+        {
+            "label": "Run with args",
+            "type": "process",
+            "command": "/bin/bash",
+            "args": [
+                "-c",
+                "source /opt/ros/rolling/setup.bash && source \"${workspaceFolder}/protocol/install/setup.bash\" && exec \"${workspaceFolder}/build/Desktop_Qt_6_7_2-Debug/app/apparddm\" ${input:runArgs}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Build (Clang+Mold)"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "runArgs",
+            "type": "promptString",
+            "description": "Arguments to pass to apparddm",
+            "default": "--u --fnc=0"
+        }
+    ]
+}

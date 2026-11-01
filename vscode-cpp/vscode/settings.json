@@ -1,0 +1,54 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.cmakePath": "${workspaceFolder}/.vscode/cmake-with-ros2",
+    "cmake.configureOnOpen": true,
+    "cmake.useCMakePresets": "always",
+    "cmake.configurePreset": "clang-mold-debug",
+    "cmake.buildPreset": "clang-mold-debug",
+    "cmake.testPreset": "clang-mold-debug",
+    "terminal.integrated.profiles.linux": {
+        "ROS 2 Rolling": {
+            "path": "/bin/bash",
+            "args": [
+                "-c",
+                "source /opt/ros/rolling/setup.bash && exec bash"
+            ],
+            "icon": "terminal-linux"
+        },
+        "ROS 2 with Protocol": {
+            "path": "/bin/bash",
+            "args": [
+                "-c",
+                "source /opt/ros/rolling/setup.bash && source ${workspaceFolder}/protocol/install/setup.bash && exec bash"
+            ],
+            "icon": "terminal-linux"
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "ROS 2 Rolling",
+    "editor.formatOnSave": true,
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[qml]": {
+        "editor.defaultFormatter": "TheQtCompany.qt-qml"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=true"
+    ],
+    "clangd.fallbackFlags": [
+        "-std=c++17"
+    ],
+    "testing.automaticallyOpenPeekView": "never",
+    "testing.automaticallyOpenTestResults": "openOnTestStart",
+    "clangd.path": "/usr/bin/clangd-18"
+}

@@ -1,0 +1,244 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "environment": {
+                "QT_VERSION": "6.7.2",
+                "QT_VERSION_SUFFIX": "6_7_2",
+                "CLANG_VERSION": "18"
+            }
+        },
+        {
+            "name": "gcc-debug",
+            "displayName": "Desktop Qt Debug (GCC, Unix Makefiles)",
+            "inherits": "base",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "BUILD_TESTS": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_PREFIX_PATH": "$penv{HOME}/Qt/$env{QT_VERSION}/gcc_64;$penv{CMAKE_PREFIX_PATH}"
+            }
+        },
+        {
+            "name": "clang-mold-debug",
+            "displayName": "Desktop Qt Debug (Clang + Mold, Ninja)",
+            "inherits": "base",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_C_COMPILER": "clang-$env{CLANG_VERSION}",
+                "CMAKE_CXX_COMPILER": "clang++-$env{CLANG_VERSION}",
+                "CMAKE_C_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_EXE_LINKER_FLAGS": "-fuse-ld=mold",
+                "BUILD_TESTS": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_PREFIX_PATH": "$penv{HOME}/Qt/$env{QT_VERSION}/gcc_64;$penv{CMAKE_PREFIX_PATH}"
+            }
+        },
+        {
+            "name": "clang-mold-asan-debug",
+            "displayName": "Desktop Qt Debug (Clang + Mold + ASan, Ninja)",
+            "inherits": "clang-mold-debug",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-ASan-Debug",
+            "cacheVariables": {
+                "ENABLE_ASAN_UBSAN": "ON"
+            }
+        },
+        {
+            "name": "clang-mold-tsan-debug",
+            "displayName": "Desktop Qt Debug (Clang + Mold + TSan, Ninja)",
+            "inherits": "clang-mold-debug",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-TSan-Debug",
+            "cacheVariables": {
+                "ENABLE_TSAN": "ON"
+            }
+        },
+        {
+            "name": "gcc-release",
+            "displayName": "Desktop Qt Release (GCC, Unix Makefiles)",
+            "inherits": "base",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "BUILD_TESTS": "OFF",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_PREFIX_PATH": "$penv{HOME}/Qt/$env{QT_VERSION}/gcc_64;$penv{CMAKE_PREFIX_PATH}"
+            }
+        },
+        {
+            "name": "clang-mold-release",
+            "displayName": "Desktop Qt Release (Clang + Mold, Ninja)",
+            "inherits": "base",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/Desktop_Qt_$env{QT_VERSION_SUFFIX}-Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_C_COMPILER": "clang-$env{CLANG_VERSION}",
+                "CMAKE_CXX_COMPILER": "clang++-$env{CLANG_VERSION}",
+                "CMAKE_C_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_EXE_LINKER_FLAGS": "-fuse-ld=mold",
+                "BUILD_TESTS": "OFF",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_PREFIX_PATH": "$penv{HOME}/Qt/$env{QT_VERSION}/gcc_64;$penv{CMAKE_PREFIX_PATH}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "gcc-debug",
+            "configurePreset": "gcc-debug",
+            "jobs": 4,
+            "targets": [
+                "all"
+            ]
+        },
+        {
+            "name": "clang-mold-debug",
+            "configurePreset": "clang-mold-debug",
+            "jobs": 6,
+            "targets": [
+                "all"
+            ]
+        },
+        {
+            "name": "clang-mold-asan-debug",
+            "configurePreset": "clang-mold-asan-debug",
+            "jobs": 6,
+            "targets": [
+                "all"
+            ]
+        },
+        {
+            "name": "clang-mold-tsan-debug",
+            "configurePreset": "clang-mold-tsan-debug",
+            "jobs": 6,
+            "targets": [
+                "all"
+            ]
+        },
+        {
+            "name": "gcc-release",
+            "configurePreset": "gcc-release",
+            "jobs": 4,
+            "targets": [
+                "all"
+            ]
+        },
+        {
+            "name": "clang-mold-release",
+            "configurePreset": "clang-mold-release",
+            "jobs": 6,
+            "targets": [
+                "all"
+            ]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "gcc-debug",
+            "configurePreset": "gcc-debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "clang-mold-debug",
+            "configurePreset": "clang-mold-debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "gcc-debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "gcc-debug"
+                },
+                {
+                    "type": "build",
+                    "name": "gcc-debug"
+                }
+            ]
+        },
+        {
+            "name": "clang-mold-debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "clang-mold-debug"
+                },
+                {
+                    "type": "build",
+                    "name": "clang-mold-debug"
+                }
+            ]
+        },
+        {
+            "name": "clang-mold-asan-debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "clang-mold-asan-debug"
+                },
+                {
+                    "type": "build",
+                    "name": "clang-mold-asan-debug"
+                }
+            ]
+        },
+        {
+            "name": "clang-mold-tsan-debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "clang-mold-tsan-debug"
+                },
+                {
+                    "type": "build",
+                    "name": "clang-mold-tsan-debug"
+                }
+            ]
+        },
+        {
+            "name": "gcc-release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "gcc-release"
+                },
+                {
+                    "type": "build",
+                    "name": "gcc-release"
+                }
+            ]
+        },
+        {
+            "name": "clang-mold-release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "clang-mold-release"
+                },
+                {
+                    "type": "build",
+                    "name": "clang-mold-release"
+                }
+            ]
+        }
+    ]
+}
