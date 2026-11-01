@@ -480,3 +480,6 @@ git branch -d feature/my-task
 | Merge went wrong | `git merge --abort` |
 | Pushed a bad commit | `git revert <hash>` then push |
 | Lost a commit | `git reflog` shows it, then `git switch -c rescue <hash>` |
+
+## GIT Alias
+- Reference (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh)
